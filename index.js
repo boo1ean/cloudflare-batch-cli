@@ -10,6 +10,7 @@ const fs = require('fs');
 
 const fetchAndStoreZones = require('./src/fetch-and-store-zones');
 const updateDNSRecordsBatch = require('./src/update-dns-records-batch');
+const listByAddress = require('./src/list-by-address')
 const usage = require('./src/usage');
 
 const db = Promise.promisifyAll(
@@ -25,5 +26,6 @@ const client = new CFClient(config);
 realist({
 	'sync': () => fetchAndStoreZones(db, client),
 	'change <from> <to>': (opts, from, to) => updateDNSRecordsBatch(db, client, from, to),
+	'ls <addr>': (opts, addr) => listByAddress(db, addr),
 	'default': usage
 });
