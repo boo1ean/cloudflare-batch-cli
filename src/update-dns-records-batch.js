@@ -30,9 +30,9 @@ module.exports = function updateDNSRecordsBatch (db, client, from, to) {
 								console.log('Updated %s from %s to %s', record.name, from, to);
 							})
 					}
-				}, { concurrency: 1 });
+				}, { concurrency: 2 });
 			}, { concurrency: 1 })
-			.then(() => console.log('Updated %s records', count));
+			.then(() => console.log('Updated %s records', count))
 			.catch(e => {
 				console.error(e.message, e.stack);
 				process.exit(1);
